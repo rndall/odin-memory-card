@@ -1,6 +1,6 @@
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
 
-function MemoryCard() {
+function ChampionCard() {
   return (
     <Card>
       <CardContent>
@@ -17,4 +17,4 @@ function MemoryCard() {
   )
 }
 
-export default MemoryCard
+export default ChampionCard
