@@ -2,7 +2,7 @@ import Container from "./Container"
 
 function Header() {
   return (
-    <header>
+    <header className="py-3">
       <Container>
         <h1>Memory Card Game</h1>
       </Container>
