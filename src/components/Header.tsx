@@ -1,7 +1,11 @@
+import Container from "./Container"
+
 function Header() {
   return (
     <header>
-      <h1>Memory Card Game</h1>
+      <Container>
+        <h1>Memory Card Game</h1>
+      </Container>
     </header>
   )
 }

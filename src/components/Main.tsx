@@ -1,5 +1,11 @@
+import Container from "./Container"
+
 function Main() {
-  return <main>Main</main>
+  return (
+    <main>
+      <Container>Main</Container>
+    </main>
+  )
 }
 
 export default Main
