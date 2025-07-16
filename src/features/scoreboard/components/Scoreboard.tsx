@@ -1,6 +1,8 @@
+import type { IScoreboard as ScoreboardProps } from "../types"
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
-function Scoreboard() {
+function Scoreboard({ currentScore, bestScore }: ScoreboardProps) {
   return (
     <Card className="max-w-62">
       <CardHeader>
@@ -8,8 +10,8 @@ function Scoreboard() {
       </CardHeader>
       <CardContent>
         <div className="flex items-center justify-center gap-8">
-          <p>Score: 2</p>
-          <p>Best Score: 12</p>
+          <p>Score: {currentScore}</p>
+          <p>Best Score: {bestScore}</p>
         </div>
       </CardContent>
     </Card>

@@ -6,7 +6,12 @@ import { useState, useEffect } from "react"
 import Container from "./Container"
 import ChampionCard from "@/features/champions/components/ChampionCard"
 
-function Main() {
+interface MainProps {
+  onScore: () => void
+  onResetScore: () => void
+}
+
+function Main({ onScore, onResetScore }: MainProps) {
   const { data: champions } = useChampionsQuery()
   const [randomizedChampions, setRandomizedChampions] = useState<Champion[]>([])
   const [clickedChampionsId, setClickedChampionsId] = useState<string[]>([])
@@ -20,10 +25,19 @@ function Main() {
     setRandomizedChampions(indexes.map((i) => champions?.[i]))
   }, [champions])
 
+  const reset = () => {
+    onResetScore()
+    setClickedChampionsId([])
+  }
+
   const handleClick = (championId: string) => {
-    if (clickedChampionsId.includes(championId)) return
+    if (clickedChampionsId.includes(championId)) {
+      reset()
+      return
+    }
 
     setClickedChampionsId([...clickedChampionsId, championId])
+    onScore()
   }
 
   return (

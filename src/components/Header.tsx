@@ -1,7 +1,9 @@
+import type { IScoreboard } from "@/features/scoreboard/types"
+
 import Container from "./Container"
 import Scoreboard from "@/features/scoreboard/components/Scoreboard"
 
-function Header() {
+function Header({ scoreboard }: { scoreboard: IScoreboard }) {
   return (
     <header>
       <Container>
@@ -11,7 +13,7 @@ function Header() {
             <p>Don't click the same champion twice!</p>
           </div>
 
-          <Scoreboard />
+          <Scoreboard {...scoreboard} />
         </div>
       </Container>
     </header>
