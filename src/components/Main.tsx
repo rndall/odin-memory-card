@@ -25,12 +25,19 @@ function Main({ onScore, onResetScore }: MainProps) {
     setRandomizedChampions(indices.map((i) => champions?.[i]))
   }, [champions])
 
+  const randomizeCardOrder = () => {
+    const indices = uniqueIndexes(cardCount, cardCount)
+    setRandomizedChampions(indices.map((i) => randomizedChampions?.[i]))
+  }
+
   const reset = () => {
     onResetScore()
     setClickedChampionsId([])
   }
 
   const handleClick = (championId: string) => {
+    randomizeCardOrder()
+
     if (clickedChampionsId.includes(championId)) {
       reset()
       return
