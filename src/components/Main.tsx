@@ -4,7 +4,6 @@ import uniqueIndexes from "@/utils/uniqueIndexes"
 import { useState, useEffect } from "react"
 
 import Container from "./Container"
-import Scoreboard from "@/features/scoreboard/components/Scoreboard"
 import ChampionCard from "@/features/champions/components/ChampionCard"
 
 function Main() {
@@ -23,7 +22,6 @@ function Main() {
   return (
     <main>
       <Container>
-        <Scoreboard />
         <div className="flex flex-wrap justify-center gap-8">
           {randomizedChampions.map((champion) => (
             <ChampionCard champion={champion} key={champion.id} />
