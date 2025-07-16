@@ -4,6 +4,7 @@ import uniqueIndexes from "@/utils/uniqueIndexes"
 import { useState, useEffect, useCallback } from "react"
 
 import Container from "./Container"
+import WinnerMessage from "./WinnerMessage"
 import ChampionCard from "@/features/champions/components/ChampionCard"
 
 interface MainProps {
@@ -34,8 +35,6 @@ function Main({ onScore, onResetScore, currentScore }: MainProps) {
 
     if (currentScore === 0) {
       setIndices()
-    } else if (currentScore === cardCount) {
-      reset()
     }
   }, [champions, currentScore, reset])
 
@@ -59,15 +58,19 @@ function Main({ onScore, onResetScore, currentScore }: MainProps) {
   return (
     <main>
       <Container>
-        <div className="flex flex-wrap justify-center gap-8">
-          {randomizedChampions.map((champion) => (
-            <ChampionCard
-              onClick={handleClick}
-              champion={champion}
-              key={champion.id}
-            />
-          ))}
-        </div>
+        {currentScore >= cardCount ? (
+          <WinnerMessage onReplay={onResetScore} />
+        ) : (
+          <div className="flex flex-wrap justify-center gap-8">
+            {randomizedChampions.map((champion) => (
+              <ChampionCard
+                onClick={handleClick}
+                champion={champion}
+                key={champion.id}
+              />
+            ))}
+          </div>
+        )}
       </Container>
     </main>
   )
