@@ -28,7 +28,11 @@ function App() {
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <QueryClientProvider client={queryClient}>
         <Header scoreboard={{ currentScore, bestScore }} />
-        <Main onScore={handleScore} onResetScore={handleResetScore} />
+        <Main
+          onScore={handleScore}
+          onResetScore={handleResetScore}
+          currentScore={currentScore}
+        />
       </QueryClientProvider>
     </ThemeProvider>
   )

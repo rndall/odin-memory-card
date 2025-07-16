@@ -1,7 +1,7 @@
 import { useChampionsQuery } from "@/features/champions/hooks/useChampionsQuery"
 import type { Champion } from "@/features/champions/types"
 import uniqueIndexes from "@/utils/uniqueIndexes"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 
 import Container from "./Container"
 import ChampionCard from "@/features/champions/components/ChampionCard"
@@ -9,30 +9,39 @@ import ChampionCard from "@/features/champions/components/ChampionCard"
 interface MainProps {
   onScore: () => void
   onResetScore: () => void
+  currentScore: number
 }
 
-function Main({ onScore, onResetScore }: MainProps) {
+function Main({ onScore, onResetScore, currentScore }: MainProps) {
   const { data: champions } = useChampionsQuery()
   const [randomizedChampions, setRandomizedChampions] = useState<Champion[]>([])
   const [clickedChampionsId, setClickedChampionsId] = useState<string[]>([])
   const cardCount = 12
 
+  const reset = useCallback(() => {
+    onResetScore()
+    setClickedChampionsId([])
+  }, [onResetScore])
+
   useEffect(() => {
-    let indices: number[] = []
     if (!champions) return
 
-    indices = uniqueIndexes(champions?.length, cardCount)
-    setRandomizedChampions(indices.map((i) => champions?.[i]))
-  }, [champions])
+    let indices: number[] = []
+    const setIndices = () => {
+      indices = uniqueIndexes(champions?.length, cardCount)
+      setRandomizedChampions(indices.map((i) => champions?.[i]))
+    }
+
+    if (currentScore === 0) {
+      setIndices()
+    } else if (currentScore === cardCount) {
+      reset()
+    }
+  }, [champions, currentScore, reset])
 
   const randomizeCardOrder = () => {
     const indices = uniqueIndexes(cardCount, cardCount)
     setRandomizedChampions(indices.map((i) => randomizedChampions?.[i]))
-  }
-
-  const reset = () => {
-    onResetScore()
-    setClickedChampionsId([])
   }
 
   const handleClick = (championId: string) => {
