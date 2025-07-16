@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 function Scoreboard({ currentScore, bestScore }: ScoreboardProps) {
   return (
-    <Card className="max-w-64">
+    <Card>
       <CardHeader>
         <CardTitle className="text-center">Scoreboard</CardTitle>
       </CardHeader>
