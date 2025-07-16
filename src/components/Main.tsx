@@ -1,34 +1,32 @@
-import { useChampionNamesQuery } from "@/features/champions/hooks/useChampionNamesQuery"
+import { useChampionsQuery } from "@/features/champions/hooks/useChampionsQuery"
+import type { Champion } from "@/features/champions/types"
 import uniqueIndexes from "@/utils/uniqueIndexes"
 import { useState, useEffect } from "react"
+
 import Container from "./Container"
 import Scoreboard from "@/features/scoreboard/components/Scoreboard"
 import ChampionCard from "@/features/champions/components/ChampionCard"
 
 function Main() {
-  const { data: championNames } = useChampionNamesQuery()
-  const [randomizedChampionNames, setRandomizedChampionNames] = useState<
-    string[]
-  >([])
+  const { data: champions } = useChampionsQuery()
+  const [randomizedChampions, setRandomizedChampions] = useState<Champion[]>([])
   const cardCount = 12
 
   useEffect(() => {
     let indexes: number[] = []
-    if (championNames) {
-      indexes = uniqueIndexes(championNames?.length, cardCount)
-      setRandomizedChampionNames(indexes.map((i) => championNames?.[i]))
-    }
-  }, [championNames])
+    if (!champions) return
 
-  console.log(randomizedChampionNames)
+    indexes = uniqueIndexes(champions?.length, cardCount)
+    setRandomizedChampions(indexes.map((i) => champions?.[i]))
+  }, [champions])
 
   return (
     <main>
       <Container>
         <Scoreboard />
         <div className="flex flex-wrap justify-center gap-8">
-          {randomizedChampionNames.map((name) => (
-            <ChampionCard name={name} key={name} />
+          {randomizedChampions.map((champion) => (
+            <ChampionCard champion={champion} key={champion.id} />
           ))}
         </div>
       </Container>

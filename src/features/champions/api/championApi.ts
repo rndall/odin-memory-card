@@ -1,4 +1,6 @@
-export const fetchChampionNames = async () => {
+import type { Champion } from "../types"
+
+export const fetchChampions = async () => {
   const response = await fetch(
     "https://ddragon.leagueoflegends.com/cdn/15.13.1/data/en_US/champion.json",
   )
@@ -6,6 +8,9 @@ export const fetchChampionNames = async () => {
 
   const { data } = await response.json()
 
-  const championNames = Object.keys(data)
-  return championNames
+  const champions = Object.values<Champion>(data).map(({ id, name }) => ({
+    id,
+    name,
+  }))
+  return champions
 }
