@@ -1,17 +1,17 @@
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
 
-function ChampionCard() {
+function ChampionCard({ name }: { name: string }) {
   return (
     <Card>
       <CardContent>
         <img
-          className="max-w-48"
-          src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Aatrox_0.jpg"
+          className="max-w-42"
+          src={`https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${name}_0.jpg`}
           alt=""
         />
       </CardContent>
       <CardFooter className="justify-center">
-        <p className="font-bold">Champion Name</p>
+        <p className="font-bold">{name}</p>
       </CardFooter>
     </Card>
   )

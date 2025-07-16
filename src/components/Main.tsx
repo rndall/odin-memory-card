@@ -10,11 +10,12 @@ function Main() {
   const [randomizedChampionNames, setRandomizedChampionNames] = useState<
     string[]
   >([])
+  const cardCount = 12
 
   useEffect(() => {
     let indexes: number[] = []
     if (championNames) {
-      indexes = uniqueIndexes(championNames?.length, 12)
+      indexes = uniqueIndexes(championNames?.length, cardCount)
       setRandomizedChampionNames(indexes.map((i) => championNames?.[i]))
     }
   }, [championNames])
@@ -25,9 +26,10 @@ function Main() {
     <main>
       <Container>
         <Scoreboard />
-        <div className="flex gap-8">
-          <ChampionCard></ChampionCard>
-          <ChampionCard></ChampionCard>
+        <div className="flex flex-wrap justify-center gap-8">
+          {randomizedChampionNames.map((name) => (
+            <ChampionCard name={name} key={name} />
+          ))}
         </div>
       </Container>
     </main>
