@@ -9,6 +9,7 @@ import ChampionCard from "@/features/champions/components/ChampionCard"
 function Main() {
   const { data: champions } = useChampionsQuery()
   const [randomizedChampions, setRandomizedChampions] = useState<Champion[]>([])
+  const [clickedChampionsId, setClickedChampionsId] = useState<string[]>([])
   const cardCount = 12
 
   useEffect(() => {
@@ -19,12 +20,22 @@ function Main() {
     setRandomizedChampions(indexes.map((i) => champions?.[i]))
   }, [champions])
 
+  const handleClick = (championId: string) => {
+    if (clickedChampionsId.includes(championId)) return
+
+    setClickedChampionsId([...clickedChampionsId, championId])
+  }
+
   return (
     <main>
       <Container>
         <div className="flex flex-wrap justify-center gap-8">
           {randomizedChampions.map((champion) => (
-            <ChampionCard champion={champion} key={champion.id} />
+            <ChampionCard
+              onClick={handleClick}
+              champion={champion}
+              key={champion.id}
+            />
           ))}
         </div>
       </Container>
