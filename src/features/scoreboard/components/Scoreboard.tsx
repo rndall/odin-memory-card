@@ -2,12 +2,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 function Scoreboard() {
   return (
-    <Card className="max-w-40">
+    <Card className="max-w-62">
       <CardHeader>
-        <CardTitle>Scoreboard</CardTitle>
+        <CardTitle className="text-center">Scoreboard</CardTitle>
       </CardHeader>
       <CardContent>
-        <div>
+        <div className="flex items-center justify-center gap-8">
           <p>Score: 2</p>
           <p>Best Score: 12</p>
         </div>
