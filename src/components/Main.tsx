@@ -18,11 +18,11 @@ function Main({ onScore, onResetScore }: MainProps) {
   const cardCount = 12
 
   useEffect(() => {
-    let indexes: number[] = []
+    let indices: number[] = []
     if (!champions) return
 
-    indexes = uniqueIndexes(champions?.length, cardCount)
-    setRandomizedChampions(indexes.map((i) => champions?.[i]))
+    indices = uniqueIndexes(champions?.length, cardCount)
+    setRandomizedChampions(indices.map((i) => champions?.[i]))
   }, [champions])
 
   const reset = () => {
