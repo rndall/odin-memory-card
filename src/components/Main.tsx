@@ -19,28 +19,28 @@ function Main({ onScore, onResetScore, currentScore }: MainProps) {
   const [clickedChampionsId, setClickedChampionsId] = useState<string[]>([])
   const cardCount = 12
 
-  const reset = useCallback(() => {
-    onResetScore()
-    setClickedChampionsId([])
-  }, [onResetScore])
+  const setIndices = useCallback(() => {
+    if (!champions) return
+
+    const indices = uniqueIndexes(champions.length, cardCount)
+    setRandomizedChampions(indices.map((i) => champions[i]))
+  }, [champions])
 
   useEffect(() => {
     if (!champions) return
 
-    let indices: number[] = []
-    const setIndices = () => {
-      indices = uniqueIndexes(champions?.length, cardCount)
-      setRandomizedChampions(indices.map((i) => champions?.[i]))
-    }
-
-    if (currentScore === 0) {
-      setIndices()
-    }
-  }, [champions, currentScore, reset])
+    setIndices()
+  }, [champions, setIndices])
 
   const randomizeCardOrder = () => {
     const indices = uniqueIndexes(cardCount, cardCount)
     setRandomizedChampions(indices.map((i) => randomizedChampions?.[i]))
+  }
+
+  const reset = () => {
+    onResetScore()
+    setClickedChampionsId([])
+    setIndices()
   }
 
   const handleClick = (championId: string) => {
@@ -59,7 +59,7 @@ function Main({ onScore, onResetScore, currentScore }: MainProps) {
     <main>
       <Container>
         {currentScore >= cardCount ? (
-          <WinnerMessage onReplay={onResetScore} />
+          <WinnerMessage onReplay={reset} />
         ) : (
           <div className="flex flex-wrap justify-center gap-8">
             {randomizedChampions.map((champion) => (
