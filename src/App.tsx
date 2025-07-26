@@ -1,6 +1,6 @@
 import { ThemeProvider } from "@/components/theme-provider"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
 import Header from "@/components/Header"
 import Main from "@/components/Main"
@@ -11,18 +11,16 @@ function App() {
   const [currentScore, setCurrentScore] = useState(0)
   const [bestScore, setBestScore] = useState(0)
 
-  const handleScore = () => setCurrentScore((c) => c + 1)
-  const handleResetScore = () => setCurrentScore(0)
+  const handleScore = () => {
+    const newCurrentScore = currentScore + 1
 
-  useEffect(() => {
-    const handleNewBestScore = () => {
-      if (currentScore > bestScore) {
-        setBestScore(currentScore)
-      }
+    setCurrentScore(newCurrentScore)
+
+    if (newCurrentScore > bestScore) {
+      setBestScore(newCurrentScore)
     }
-
-    handleNewBestScore()
-  }, [currentScore, bestScore])
+  }
+  const handleResetScore = () => setCurrentScore(0)
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
